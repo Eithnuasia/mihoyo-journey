@@ -4,6 +4,7 @@ import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
 import CharactersPage from "./pages/Characters/CharactersPage";
 import Memories from "./pages/Memories";
+import FontLoader from "./components/FontLoader";
 
 function App() {
   const [isMuted, setIsMuted] = useState(true);
@@ -14,6 +15,7 @@ function App() {
 
   return (
     <Router>
+      <FontLoader />
       <MainLayout isMuted={isMuted} toggleMute={toggleMute}>
         <Routes>
           <Route path="/" element={<Home />} />
