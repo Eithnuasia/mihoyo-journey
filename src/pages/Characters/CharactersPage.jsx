@@ -34,19 +34,22 @@ const BUTTON_CARDS = [
     id: 1,
     image: "images/buttonimage/button1.png",
     title: "Genshin Impact",
-    background: "images/backgrounds/bg-card-gi.png",
+    heroBackground: "images/backgrounds/characters-main.png",
+    cardBackground: "images/backgrounds/bg-card-gi.png",
   },
   {
     id: 2,
     image: "images/buttonimage/button2.png",
     title: "Honkai: Star Rail",
-    background: "images/backgrounds/bg-card-hsr.png",
+    heroBackground: "images/backgrounds/characters-main2.png",
+    cardBackground: "images/backgrounds/bg-card-hsr.png",
   },
   {
     id: 3,
     image: "images/buttonimage/button3.png",
     title: "Zenless Zone Zero",
-    background: "images/backgrounds/bg-card-zzz.png",
+    heroBackground: "images/backgrounds/characters-main3.png",
+    cardBackground: "images/backgrounds/bg-card-zzz.png",
   },
 ];
 
@@ -65,9 +68,13 @@ const CharactersPage = () => {
     setSelectedCard((prev) => (prev === BUTTON_CARDS.length ? 1 : prev + 1));
   };
 
-  const currentBackground = BUTTON_CARDS.find(
+  const currentHeroBackground = BUTTON_CARDS.find(
     (card) => card.id === selectedCard
-  )?.background;
+  )?.heroBackground;
+
+  const currentCardBackground = BUTTON_CARDS.find(
+    (card) => card.id === selectedCard
+  )?.cardBackground;
 
   const currentGame = BUTTON_CARDS.find(
     (card) => card.id === selectedCard
@@ -102,6 +109,7 @@ const CharactersPage = () => {
 
   return (
     <div className="min-h-screen">
+      {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -110,8 +118,8 @@ const CharactersPage = () => {
       >
         <div className="aspect-[16/9] relative overflow-hidden">
           <motion.img
-            key={currentBackground}
-            src={getAssetPath(currentBackground)}
+            key={currentHeroBackground}
+            src={getAssetPath(currentHeroBackground)}
             alt="Characters Main"
             className="w-full h-full object-cover absolute top-0 left-0"
             initial={{ opacity: 0 }}
@@ -184,7 +192,21 @@ const CharactersPage = () => {
         </div>
       </motion.div>
 
-      <CharacterGrid selectedGame={currentGame} />
+      {/* Character Grid Section with Card Background */}
+      <div className="relative">
+        <motion.img
+          key={currentCardBackground}
+          src={getAssetPath(currentCardBackground)}
+          alt="Character Grid Background"
+          className="absolute inset-0 w-full h-full object-cover"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        />
+        <div className="relative z-10">
+          <CharacterGrid selectedGame={currentGame} />
+        </div>
+      </div>
     </div>
   );
 };
