@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "../../styles/CharactersPage.css";
 import CharacterGrid from "../../components/Characters/CharacterGrid";
 import { getAssetPath } from "../../utils/assetUtils";
@@ -53,8 +53,96 @@ const BUTTON_CARDS = [
   },
 ];
 
+// Image loading strategy
+const IMAGE_STRATEGY = {
+  priority: ["heroBackground", "cardBackground"],
+  secondary: ["image"],
+};
+
+// Enhanced skeleton loader with blur effect
+const SkeletonLoader = () => (
+  <div className="animate-pulse relative overflow-hidden">
+    <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl w-full h-full absolute inset-0"></div>
+    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skeleton-shine"></div>
+  </div>
+);
+
 const CharactersPage = () => {
   const [selectedCard, setSelectedCard] = useState(1);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [heroImageLoaded, setHeroImageLoaded] = useState(false);
+  const [cardImageLoaded, setCardImageLoaded] = useState(false);
+  const [cachedImages, setCachedImages] = useState(null);
+
+  // Enhanced preload with caching
+  const preloadImage = useCallback(
+    (url) => {
+      return new Promise((resolve, reject) => {
+        // Check if image is cached in memory
+        if (cachedImages?.[url]) {
+          resolve(url);
+          return;
+        }
+
+        const img = new Image();
+        img.onload = () => {
+          // Cache in memory
+          setCachedImages((prev) => ({
+            ...prev,
+            [url]: true,
+          }));
+          resolve(url);
+        };
+        img.onerror = reject;
+        img.src = url;
+      });
+    },
+    [cachedImages]
+  );
+
+  // Optimized image preloading
+  useEffect(() => {
+    const loadImages = async () => {
+      try {
+        // Load priority images first
+        const priorityImages = BUTTON_CARDS.flatMap((card) =>
+          IMAGE_STRATEGY.priority.map((type) => getAssetPath(card[type]))
+        );
+
+        await Promise.all(priorityImages.map(preloadImage));
+
+        // Then load secondary images
+        const secondaryImages = BUTTON_CARDS.flatMap((card) =>
+          IMAGE_STRATEGY.secondary.map((type) => getAssetPath(card[type]))
+        );
+
+        await Promise.all(secondaryImages.map(preloadImage));
+
+        setImagesLoaded(true);
+      } catch (error) {
+        console.error("Failed to preload some images:", error);
+        // Still set as loaded to prevent infinite loading state
+        setImagesLoaded(true);
+      }
+    };
+
+    loadImages();
+  }, [preloadImage]);
+
+  // Cache check on mount
+  useEffect(() => {
+    const cached = localStorage.getItem("cachedImages");
+    if (cached) {
+      setCachedImages(JSON.parse(cached));
+    }
+  }, []);
+
+  // Cache update
+  useEffect(() => {
+    if (cachedImages) {
+      localStorage.setItem("cachedImages", JSON.stringify(cachedImages));
+    }
+  }, [cachedImages]);
 
   const handleCardClick = (cardId) => {
     setSelectedCard(cardId);
@@ -117,14 +205,22 @@ const CharactersPage = () => {
         className="w-full relative"
       >
         <div className="aspect-[16/9] relative overflow-hidden">
+          {!heroImageLoaded && (
+            <div className="absolute inset-0">
+              <SkeletonLoader />
+            </div>
+          )}
           <motion.img
             key={currentHeroBackground}
             src={getAssetPath(currentHeroBackground)}
             alt="Characters Main"
-            className="w-full h-full object-cover absolute top-0 left-0"
+            className={`w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-500 ${
+              heroImageLoaded ? "opacity-100" : "opacity-0"
+            }`}
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            animate={{ opacity: heroImageLoaded ? 1 : 0 }}
             transition={{ duration: 0.5 }}
+            onLoad={() => setHeroImageLoaded(true)}
           />
 
           <div className="absolute inset-0 flex items-center justify-center translate-y-[31%]">
@@ -160,11 +256,14 @@ const CharactersPage = () => {
                         position: "absolute",
                       }}
                     >
+                      {!imagesLoaded && <SkeletonLoader />}
                       <img
                         src={getAssetPath(card.image)}
                         alt={card.title}
-                        className="w-full h-full rounded-xl object-contain"
-                        loading="lazy"
+                        className={`w-full h-full rounded-xl object-contain transition-opacity duration-300 ${
+                          imagesLoaded ? "opacity-100" : "opacity-0"
+                        }`}
+                        loading="eager"
                       />
                     </motion.div>
                   ))}
@@ -194,14 +293,22 @@ const CharactersPage = () => {
 
       {/* Character Grid Section with Card Background */}
       <div className="relative">
+        {!cardImageLoaded && (
+          <div className="absolute inset-0">
+            <SkeletonLoader />
+          </div>
+        )}
         <motion.img
           key={currentCardBackground}
           src={getAssetPath(currentCardBackground)}
           alt="Character Grid Background"
-          className="absolute inset-0 w-full h-full object-cover"
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+            cardImageLoaded ? "opacity-100" : "opacity-0"
+          }`}
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          animate={{ opacity: cardImageLoaded ? 1 : 0 }}
           transition={{ duration: 0.5 }}
+          onLoad={() => setCardImageLoaded(true)}
         />
         <div className="relative z-10">
           <CharacterGrid selectedGame={currentGame} />

@@ -19,6 +19,17 @@ export default defineConfig(({ mode }) => ({
         manualChunks: undefined,
       },
     },
+    // Optimisasi gambar
+    assetsInlineLimit: 4096, // 4kb
+    chunkSizeWarningLimit: 1000,
+    // Kompresi assets
+    minify: "terser",
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
   },
   resolve: {
     alias: {
@@ -31,6 +42,13 @@ export default defineConfig(({ mode }) => ({
       css: {
         charset: false,
       },
+    },
+  },
+  // Optimisasi dev server
+  server: {
+    host: true,
+    hmr: {
+      overlay: true,
     },
   },
 }));
