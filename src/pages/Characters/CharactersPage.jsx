@@ -34,19 +34,19 @@ const BUTTON_CARDS = [
     id: 1,
     image: "images/buttonimage/button1.png",
     title: "Genshin Impact",
-    background: "images/backgrounds/characters-main.png",
+    background: "images/backgrounds/bg-card-gi.png",
   },
   {
     id: 2,
     image: "images/buttonimage/button2.png",
     title: "Honkai: Star Rail",
-    background: "images/backgrounds/characters-main2.png",
+    background: "images/backgrounds/bg-card-hsr.png",
   },
   {
     id: 3,
     image: "images/buttonimage/button3.png",
     title: "Zenless Zone Zero",
-    background: "images/backgrounds/characters-main3.png",
+    background: "images/backgrounds/bg-card-zzz.png",
   },
 ];
 

@@ -42,7 +42,7 @@ const Memories = () => {
         const paddedNumber = i.toString().padStart(2, "0");
         const basePath = `images/memories/${game.folder}/${game.code}-${paddedNumber}`;
 
-        // Try all three formats: PNG, JPG, and JPEG
+        // Try PNG first as it's the most common format
         imageArray.push({
           alt: `${game.name} Memory ${i}`,
           category: game.name,
@@ -51,9 +51,8 @@ const Memories = () => {
           fallbackPaths: [
             basePath + ".png",
             basePath + ".jpg",
-            basePath + ".jpeg",
             // Add a placeholder as last resort
-            "images/placeholder.jpg",
+            "images/placeholder-image.png", // Changed to .png extension
           ],
         });
       }
@@ -149,7 +148,9 @@ const Memories = () => {
       e.target.src = getAssetPath(nextPath);
     } else {
       console.error(`Failed to load image: ${image.alt}`);
-      e.target.src = getAssetPath("images/placeholder.jpg");
+      // Use a data URI for placeholder to avoid additional request
+      e.target.src =
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAF0WlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNy4yLWMwMDAgNzkuMWI2NWE3OWI0LCAyMDIyLzA2LzEzLTIyOjAxOjAxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjQuMCAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDI0LTAzLTE5VDA4OjM2OjQ3KzA3OjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDI0LTAzLTE5VDA4OjM2OjQ3KzA3OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyNC0wMy0xOVQwODozNjo0NyswNzowMCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowZWRhMjI5ZS1mNmNmLTQ0NDEtOWQ0NC0wYjk4NzU3N2ZhOWMiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDowZWRhMjI5ZS1mNmNmLTQ0NDEtOWQ0NC0wYjk4NzU3N2ZhOWMiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowZWRhMjI5ZS1mNmNmLTQ0NDEtOWQ0NC0wYjk4NzU3N2ZhOWMiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDowZWRhMjI5ZS1mNmNmLTQ0NDEtOWQ0NC0wYjk4NzU3N2ZhOWMiIHN0RXZ0OndoZW49IjIwMjQtMDMtMTlUMDg6MzY6NDcrMDc6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCAyNC4wIChXaW5kb3dzKSIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7pU0qAAAAACklEQVR42mNgQAIAAAUAAUZrxH4AAAAASUVORK5CYII=";
       e.target.onerror = null;
     }
   };
