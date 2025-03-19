@@ -139,14 +139,9 @@ const Memories = () => {
 
   const handleImageError = (e, image) => {
     const { paths, currentPath } = image;
-
-    // Get all format paths
     const allPaths = Object.values(paths);
-
-    // Find current format index
     const currentIndex = allPaths.indexOf(currentPath);
 
-    // Try next format if available
     if (currentIndex < allPaths.length - 1) {
       const nextPath = allPaths[currentIndex + 1];
       image.currentPath = nextPath;

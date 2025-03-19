@@ -97,7 +97,9 @@ const JourneySection = ({
           ref={prevBackgroundRef}
           className="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000"
           style={{
-            backgroundImage: prevBackground,
+            backgroundImage: prevBackground
+              ? getCssAssetPath(prevBackground)
+              : "none",
             filter: "brightness(0.7)",
             opacity: 0,
           }}
