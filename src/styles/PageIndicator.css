@@ -1,0 +1,135 @@
+/* Page Indicator Container */
+.page-indicator {
+  position: fixed;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  font-family: var(--font-mihoyo-en);
+  pointer-events: all;
+}
+
+.indicator-track {
+  position: relative;
+  width: 32px;
+  height: 90px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 6px;
+  padding: 8px 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  pointer-events: all;
+}
+
+/* Indicator Item */
+.indicator-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.5rem;
+}
+
+/* Indicator Number */
+.indicator-number {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #faeb02;
+  width: 100%;
+  text-align: center;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  pointer-events: all;
+}
+
+.indicator-number:not(.active) {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Indicator Line */
+.indicator-line {
+  opacity: 0.15;
+  height: 10px;
+  transition: all 0.3s ease;
+}
+
+/* Hover effects */
+.indicator-number:hover {
+  color: #faeb02;
+}
+
+/* Active state */
+.indicator-number.active {
+  color: #faeb02;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(250, 235, 2, 0.3);
+}
+
+.nav-arrow {
+  width: 32px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 4px;
+  color: #faeb02;
+  font-size: 9px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  pointer-events: all;
+}
+
+.nav-arrow:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: scale(1.05);
+  border-color: rgba(250, 235, 2, 0.3);
+}
+
+.nav-arrow.up {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  margin: 0;
+  border-bottom: none;
+}
+
+.nav-arrow.down {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin: 0;
+  border-top: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .page-indicator {
+    right: 16px;
+  }
+
+  .indicator-track {
+    width: 28px;
+    height: 80px;
+  }
+
+  .nav-arrow {
+    width: 28px;
+    height: 16px;
+    font-size: 8px;
+  }
+
+  .indicator-number {
+    font-size: 0.8rem;
+  }
+}

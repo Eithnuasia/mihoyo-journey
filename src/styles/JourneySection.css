@@ -1,0 +1,154 @@
+/* Journey Section */
+#journey {
+  padding-top: 120px;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+#journey h2 {
+  margin-top: 0;
+}
+
+/* Memory Cards Styling */
+.journey-card {
+  position: absolute;
+  transition: all 0.5s ease-out;
+  will-change: transform, left;
+  transform-origin: center center;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.journey-card.active {
+  z-index: 10;
+}
+
+.journey-card .card-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.journey-card .card-front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  overflow: hidden;
+  border: none !important;
+}
+
+.journey-card:hover .card-front,
+.journey-card.active .card-front,
+.journey-card .card-front {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Carousel Container */
+.carousel-container {
+  position: relative;
+  height: 100px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  perspective: 1200px;
+}
+
+@media (max-width: 768px) {
+  .carousel-container {
+    height: 80px;
+    max-width: 300px;
+  }
+
+  .journey-card {
+    width: 140px !important;
+    height: 80px !important;
+  }
+}
+
+/* Background styling */
+#journey .absolute.inset-0 {
+  z-index: 0;
+}
+
+#journey .transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: ease-in-out;
+  transition-duration: 1000ms;
+  will-change: opacity;
+}
+
+/* Carousel navigation arrows */
+.carousel-arrow {
+  transition: all 0.3s ease;
+  opacity: 0.7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  font-size: 0.9rem;
+}
+
+.carousel-arrow:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.carousel-arrow-left {
+  transform: translate(-50%, -50%);
+}
+
+.carousel-arrow-left:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.carousel-arrow-right {
+  transform: translate(50%, -50%);
+}
+
+.carousel-arrow-right:hover {
+  transform: translate(50%, -50%) scale(1.1);
+}
+
+/* View more button */
+.view-more-btn {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(0);
+  transition: all 0.3s ease;
+}
+
+.view-more-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.view-more-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0)
+  );
+  z-index: -1;
+}
+
+/* Game Grid Overlay */
+.game-grid-overlay {
+  background-image: linear-gradient(
+      rgba(139, 92, 246, 0.1) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.3;
+  z-index: 2;
+}

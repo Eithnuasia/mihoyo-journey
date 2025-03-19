@@ -1,0 +1,56 @@
+/* Hide scrollbar untuk semua browser */
+.hide-scrollbar,
+html,
+body {
+  -ms-overflow-style: none !important; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar,
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* Ensure content doesn't overlap with fixed header */
+section {
+  scroll-margin-top: 100px;
+  position: relative;
+}
+
+/* Japanese Font */
+.font-japanese {
+  font-family: "Noto Sans JP", sans-serif;
+  letter-spacing: 0.05em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Video styling untuk transparansi */
+video {
+  mix-blend-mode: screen;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Custom styling for slick carousel dots */
+.custom-dots {
+  bottom: 20px;
+}
+
+.custom-dots li {
+  margin: 0 5px;
+}

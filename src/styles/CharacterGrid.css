@@ -1,0 +1,76 @@
+.character-card {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  backdrop-filter: blur(4px);
+}
+
+.character-card:hover {
+  transform: translateY(-8px);
+}
+
+.character-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.05)
+  );
+  border-radius: 0.75rem;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.character-card:hover::before {
+  opacity: 1;
+}
+
+/* Section styling */
+section {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Background container */
+section > div:first-child {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+/* Grid container adjustments */
+.character-grid-container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  section {
+    padding: 2rem 0;
+  }
+
+  .character-card {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 640px) {
+  .character-card {
+    max-width: 320px;
+  }
+}
