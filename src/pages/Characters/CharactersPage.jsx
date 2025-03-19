@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import "../../styles/CharactersPage.css";
 import CharacterGrid from "../../components/Characters/CharacterGrid";
+import { getAssetPath } from "../../utils/assetUtils";
 
 // Konstanta untuk style yang sering digunakan
 const ARROW_BUTTON_CLASSES =
@@ -31,21 +32,21 @@ const CARD_POSITIONS = {
 const BUTTON_CARDS = [
   {
     id: 1,
-    image: "/images/buttonimage/button1.png",
+    image: "images/buttonimage/button1.png",
     title: "Genshin Impact",
-    background: "/images/backgrounds/characters-main.png",
+    background: "images/backgrounds/characters-main.png",
   },
   {
     id: 2,
-    image: "/images/buttonimage/button2.png",
+    image: "images/buttonimage/button2.png",
     title: "Honkai: Star Rail",
-    background: "/images/backgrounds/characters-main2.png",
+    background: "images/backgrounds/characters-main2.png",
   },
   {
     id: 3,
-    image: "/images/buttonimage/button3.png",
+    image: "images/buttonimage/button3.png",
     title: "Zenless Zone Zero",
-    background: "/images/backgrounds/characters-main3.png",
+    background: "images/backgrounds/characters-main3.png",
   },
 ];
 
@@ -110,7 +111,7 @@ const CharactersPage = () => {
         <div className="aspect-[16/9] relative overflow-hidden">
           <motion.img
             key={currentBackground}
-            src={currentBackground}
+            src={getAssetPath(currentBackground)}
             alt="Characters Main"
             className="w-full h-full object-cover absolute top-0 left-0"
             initial={{ opacity: 0 }}

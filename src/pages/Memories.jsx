@@ -145,7 +145,7 @@ const Memories = () => {
     if (currentIndex < allPaths.length - 1) {
       const nextPath = allPaths[currentIndex + 1];
       image.currentPath = nextPath;
-      e.target.src = nextPath;
+      e.target.src = getAssetPath(nextPath);
     } else {
       console.error(`Failed to load image: ${image.alt}`);
       e.target.src = getAssetPath("images/placeholder.jpg");
@@ -223,7 +223,7 @@ const Memories = () => {
                     >
                       <div className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300">
                         <img
-                          src={image.currentPath}
+                          src={getAssetPath(image.currentPath)}
                           alt={image.alt}
                           className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
                           loading="lazy"

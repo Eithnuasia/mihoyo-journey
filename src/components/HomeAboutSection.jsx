@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { GAME_DATA } from "../data/gamesConfig";
 import "../styles/AboutSection.css";
 import { useState } from "react";
+import { getAssetPath } from "../utils/assetUtils";
 
 const StatCard = ({ number, label }) => (
   <motion.div
@@ -39,7 +40,7 @@ const GameShowcase = () => {
               key={`${game.title}-${index}`}
               className="game-showcase-item"
               style={{
-                backgroundImage: `url(${game.background})`,
+                backgroundImage: `url(${getAssetPath(game.background)})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 height: "200px",
