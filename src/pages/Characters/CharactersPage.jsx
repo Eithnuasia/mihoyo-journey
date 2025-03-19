@@ -153,7 +153,7 @@ const CharactersPage = () => {
                       }}
                     >
                       <img
-                        src={card.image}
+                        src={getAssetPath(card.image)}
                         alt={card.title}
                         className="w-full h-full rounded-xl object-contain"
                         loading="lazy"
