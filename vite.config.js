@@ -8,9 +8,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
-  base: import.meta.env.MODE === "production" ? "/mihoyo-journey/" : "/",
+  base: mode === "production" ? "/mihoyo-journey/" : "/",
   // Optimisasi untuk assets
   build: {
     assetsDir: "assets",
@@ -33,4 +33,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));
