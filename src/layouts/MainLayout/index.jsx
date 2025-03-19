@@ -3,9 +3,14 @@ import { useState, useEffect, useRef } from "react";
 import MainNavigationBar from "./MainNavigationBar";
 import Footer from "../../components/Footer";
 import HomeBackgroundPattern from "../../components/HomeBackgroundPattern";
+import { getAudioPath } from "../../utils/assetUtils";
 
 // Audio playlist configuration
-const AUDIO_PLAYLIST = ["/audio/bg.mp3", "/audio/bg2.mp3", "/audio/bg3.mp3"];
+const AUDIO_PLAYLIST = [
+  getAudioPath("audio/bg.mp3"),
+  getAudioPath("audio/bg2.mp3"),
+  getAudioPath("audio/bg3.mp3"),
+];
 const MIN_HEADER_OPACITY = 0.4;
 const DEFAULT_HEADER_OPACITY = 0.8;
 const AUDIO_VOLUME = 0.6;

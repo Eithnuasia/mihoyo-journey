@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useScroll, motion, useTransform } from "framer-motion";
+import { getCssAssetPath } from "../utils/assetUtils";
 import "../styles/HeroSection.css";
 
 const HeroSection = () => {
@@ -13,7 +14,7 @@ const HeroSection = () => {
       <div
         className="hero-background"
         style={{
-          backgroundImage: "url('/images/backgrounds/GI.png')",
+          backgroundImage: getCssAssetPath("images/backgrounds/GI.png"),
           backgroundColor: "transparent",
         }}
       ></div>

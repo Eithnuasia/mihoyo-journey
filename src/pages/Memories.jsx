@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { getAssetPath } from "../utils/assetUtils";
 
 const Memories = () => {
   const [images, setImages] = useState([]);
@@ -39,13 +40,13 @@ const Memories = () => {
     gameData.forEach((game) => {
       for (let i = 1; i <= game.count; i++) {
         const paddedNumber = i.toString().padStart(2, "0");
-        const basePath = `/images/memories/${game.folder}/${game.code}-${paddedNumber}`;
+        const basePath = `images/memories/${game.folder}/${game.code}-${paddedNumber}`;
 
         // Create separate paths for each format
         const imagePaths = {
-          jpg: `${basePath}.jpg`,
-          jpeg: `${basePath}.jpeg`,
-          png: `${basePath}.png`,
+          jpg: getAssetPath(`${basePath}.jpg`),
+          jpeg: getAssetPath(`${basePath}.jpeg`),
+          png: getAssetPath(`${basePath}.png`),
         };
 
         imageArray.push({
@@ -152,7 +153,7 @@ const Memories = () => {
       e.target.src = nextPath;
     } else {
       console.error(`Failed to load image: ${image.alt}`);
-      e.target.src = "/images/placeholder.jpg";
+      e.target.src = getAssetPath("images/placeholder.jpg");
       e.target.onerror = null;
     }
   };

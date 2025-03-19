@@ -5,23 +5,26 @@
 /* Font Configurations */
 @font-face {
   font-family: "MihoyoFont-EN";
-  src: url("/fonts/en-us.ttf") format("truetype");
+  src: url("@/assets/fonts/en-us.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "MihoyoFont-ID";
-  src: url("/fonts/id-id.ttf") format("truetype");
+  src: url("@/assets/fonts/id-id.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "MihoyoFont-JP";
-  src: url("/fonts/ja-jp.ttf") format("truetype");
+  src: url("@/assets/fonts/ja-jp.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 /* Apply fonts globally */

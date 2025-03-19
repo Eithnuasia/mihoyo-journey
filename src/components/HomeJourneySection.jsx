@@ -9,6 +9,7 @@ import {
 } from "../data/gamesConfig";
 import "../styles/JourneySection.css";
 import "../styles/UIComponents.css";
+import { getCssAssetPath } from "../utils/assetUtils";
 
 const getCardPosition = (cardId, selectedMemory) => {
   if (cardId === selectedMemory) {
@@ -79,13 +80,15 @@ const JourneySection = ({
           ref={backgroundRef}
           className="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000"
           style={{
-            backgroundImage: `url(/images/backgrounds/${
-              selectedMemory === 1
-                ? "genshin-impact"
-                : selectedMemory === 2
-                ? "honkai-star-rail"
-                : "zenless-zone-zero"
-            }.png)`,
+            backgroundImage: getCssAssetPath(
+              `images/backgrounds/${
+                selectedMemory === 1
+                  ? "genshin-impact"
+                  : selectedMemory === 2
+                  ? "honkai-star-rail"
+                  : "zenless-zone-zero"
+              }.png`
+            ),
             filter: "brightness(0.7)",
           }}
         ></div>
@@ -171,13 +174,15 @@ const JourneySection = ({
                     <div
                       className="absolute inset-0 bg-cover bg-center"
                       style={{
-                        backgroundImage: `url(/images/backgrounds/${
-                          memory.id === 1
-                            ? "genshin-impact"
-                            : memory.id === 2
-                            ? "honkai-star-rail"
-                            : "zenless-zone-zero"
-                        }.png)`,
+                        backgroundImage: getCssAssetPath(
+                          `images/backgrounds/${
+                            memory.id === 1
+                              ? "genshin-impact"
+                              : memory.id === 2
+                              ? "honkai-star-rail"
+                              : "zenless-zone-zero"
+                          }.png`
+                        ),
                         filter: "brightness(0.9)",
                       }}
                     />
