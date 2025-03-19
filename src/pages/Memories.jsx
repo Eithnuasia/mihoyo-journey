@@ -42,19 +42,19 @@ const Memories = () => {
         const paddedNumber = i.toString().padStart(2, "0");
         const basePath = `images/memories/${game.folder}/${game.code}-${paddedNumber}`;
 
-        // Create separate paths for each format
-        const imagePaths = {
-          jpg: getAssetPath(`${basePath}.jpg`),
-          jpeg: getAssetPath(`${basePath}.jpeg`),
-          png: getAssetPath(`${basePath}.png`),
-        };
-
+        // Try all three formats: PNG, JPG, and JPEG
         imageArray.push({
-          paths: imagePaths,
           alt: `${game.name} Memory ${i}`,
           category: game.name,
           number: paddedNumber,
-          currentPath: imagePaths.jpg, // Default start with jpg
+          currentPath: basePath + ".png", // Start with png
+          fallbackPaths: [
+            basePath + ".png",
+            basePath + ".jpg",
+            basePath + ".jpeg",
+            // Add a placeholder as last resort
+            "images/placeholder.jpg",
+          ],
         });
       }
     });
@@ -138,12 +138,13 @@ const Memories = () => {
   }, []);
 
   const handleImageError = (e, image) => {
-    const { paths, currentPath } = image;
-    const allPaths = Object.values(paths);
-    const currentIndex = allPaths.indexOf(currentPath);
+    // Get the current path and find its index in fallbackPaths
+    const currentIndex = image.fallbackPaths.indexOf(image.currentPath);
 
-    if (currentIndex < allPaths.length - 1) {
-      const nextPath = allPaths[currentIndex + 1];
+    // If we have more formats to try
+    if (currentIndex < image.fallbackPaths.length - 1) {
+      // Try next format
+      const nextPath = image.fallbackPaths[currentIndex + 1];
       image.currentPath = nextPath;
       e.target.src = getAssetPath(nextPath);
     } else {
