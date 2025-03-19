@@ -42,7 +42,7 @@ const Memories = () => {
         const paddedNumber = i.toString().padStart(2, "0");
         const basePath = `images/memories/${game.folder}/${game.code}-${paddedNumber}`;
 
-        // Try PNG first as it's the most common format
+        // Try all image formats in order
         imageArray.push({
           alt: `${game.name} Memory ${i}`,
           category: game.name,
@@ -51,8 +51,9 @@ const Memories = () => {
           fallbackPaths: [
             basePath + ".png",
             basePath + ".jpg",
+            basePath + ".jpeg",
             // Add a placeholder as last resort
-            "images/placeholder-image.png", // Changed to .png extension
+            "images/placeholder-image.png",
           ],
         });
       }
