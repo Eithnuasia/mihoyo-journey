@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  HashRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { useState } from "react";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
@@ -21,6 +26,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/characters" element={<CharactersPage />} />
           <Route path="/memories" element={<Memories />} />
+          {/* Redirect any unknown routes to home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </MainLayout>
     </Router>
